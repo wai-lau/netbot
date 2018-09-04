@@ -1,0 +1,9 @@
+<h1>Users#new</h1>
+<p>Find me in app/views/users/new.html.erb</p>
+
+
+<%= form_tag("/users", method: "post") do %>
+  <%= label_tag(:q, "JSON:") %>
+  <%= text_area_tag(:q) %>
+  <%= submit_tag("Create") %>
+<% end %>
