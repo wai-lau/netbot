@@ -1,1 +1,2 @@
-/tmp/pids/
+/log/*.log
+/tmp
