@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   resources :games 
   resources :users
+  resources :moves
 end
