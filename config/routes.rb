@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :games 
   resources :users
   resources :moves
+  root to: "users#new"
 end
