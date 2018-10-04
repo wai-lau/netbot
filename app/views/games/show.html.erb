@@ -1,13 +1,7 @@
 <div class="row col-md-8 col-md-offset-2">
   <div class="panel panel-default">
-    <% if @game %>
-      <div class="panel-body" id="moves">
-        <% @game.each { |m| }%>
-      </div>
-    <%else%>
-      <div class="panel-body hidden" id="moves">
-      </div>
-    <%end%>
+    <div class="panel-body hidden" id="moves">
+    </div>
   </div>
   <%= form_for @move, remote: true, authenticity_token: true do |f| %>
     <%= f.label :your_move %>:
