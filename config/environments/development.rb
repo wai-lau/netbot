@@ -53,7 +53,8 @@ Rails.application.configure do
   
   #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
-  
-  config.action_cable.url = "ws://192.168.99.100:3000/cable"
-  config.action_cable.allowed_request_origins = ['http://192.168.99.100:3000']
+  host = ENV['WEBSOCKET_HOST']
+  port = ENV['WEBSOCKET_HOST_PORT']
+  config.action_cable.url = "ws://#{host}:#{port}/cable"
+  config.action_cable.allowed_request_origins = ["http://#{host}:#{port}"]
 end
