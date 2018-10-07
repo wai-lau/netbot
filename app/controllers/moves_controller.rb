@@ -1,8 +1,8 @@
 class MovesController < ApplicationController
   def create
-    move = Move.new
+    move = params["move"]["content"]
     ActionCable.server.broadcast 'moves',
-      move: "aylmao"
+      move: move.reverse
     head :ok
   end
 end

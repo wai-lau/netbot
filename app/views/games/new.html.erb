@@ -1,1 +1,12 @@
-hello
+<div class="row col-md-8 col-md-offset-2">
+  <div class="panel panel-default">
+    <div class="panel-body hidden" id="moves">
+    </div>
+  </div>
+  <%= form_for :move, url: {action: "create", controller: "moves"}, remote: true, authenticity_token: true do |f| %>
+    <%= f.label :your_move %>:
+    <%= f.text_area :content, class: "form-control", data: {textarea: "move"} %>
+    <%= f.hidden_field :game_id, value: "lol" %>
+    <%= f.submit "send", class: "btn btn-primary", data: {send: "move"} %>
+  <% end %>
+</div>

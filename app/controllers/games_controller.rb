@@ -3,10 +3,10 @@ class GamesController < ApplicationController
   end
 
   def show
-    @move = Move.new
   end
 
   def new
+    @move = Move.new
   end
   
   def create
