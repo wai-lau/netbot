@@ -6,7 +6,6 @@ class GamesController < ApplicationController
   end
 
   def new
-    @move = Move.new
   end
   
   def create
