@@ -1,12 +1,26 @@
-<div class="row col-md-8 col-md-offset-2">
-  <div class="panel panel-default">
-    <div class="panel-body hidden" id="moves">
+<div class="grid-container">
+  <div class="sidebar">
+    <%= form_for :move, url: {action: "create", controller: "moves"}, remote: true, authenticity_token: true do |f| %>
+      <%= f.text_field :content, style: "width: 90%; display: block; margin: 0 auto 3% auto;", data: {textarea: "move"} %>
+      <%= f.hidden_field :game_id, value: "lol" %>
+      <%= f.submit "send", style: "display: none;", data: {send: "move"} %>
+    <% end %>
+    <div id="moves">
     </div>
   </div>
-  <%= form_for :move, url: {action: "create", controller: "moves"}, remote: true, authenticity_token: true do |f| %>
-    <%= f.label :your_move %>:
-    <%= f.text_area :content, class: "form-control", data: {textarea: "move"} %>
-    <%= f.hidden_field :game_id, value: "lol" %>
-    <%= f.submit "send", class: "btn btn-primary", data: {send: "move"} %>
-  <% end %>
+
+  <div class="game">
+    <div class="grid" style="grid-template-areas: '<%= "a "*10 %>'">
+      <% state = [*0..9].map { |i| [*0..9].map { |j| "#{i}:#{j}" } } %>
+      <% state.each do |row| %>
+        <% row.each do |label| %>
+          <div class="tile">
+            <p>
+              <%= label %>
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
