@@ -1,4 +1,4 @@
 <%= form_for :user, url: {action: "create"} do |f| %>
-  Name: <%= f.text_field :name %><br />
+  <%= f.text_field :name %><br />
   <%= f.submit %>
 <% end %>
