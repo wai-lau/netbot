@@ -11,9 +11,8 @@
   </div>
 
   <div class="game">
-    <div class="grid" style="grid-template-areas: '<%= "a "*10 %>'">
-      <% state = [*0..9].map { |i| [*0..9].map { |j| "#{i}:#{j}" } } %>
-      <% state.each do |row| %>
+    <div class="grid" style="grid-template-areas: '<%= [*0..9].map{"a"}.join " "%>'">
+      <% grid_state.each do |row| %>
         <% row.each do |label| %>
           <div style="background-color: " class="tile">
             <p>
@@ -22,6 +21,6 @@
           </div>
         <% end %>
       <% end %>
-    </div>
-  </div>
+    </div> 
+  </div> 
 </div>
