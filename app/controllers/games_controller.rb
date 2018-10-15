@@ -20,7 +20,7 @@ class GamesController < ApplicationController
       game.save
     end
   end
-
+  
   def create
   end
 
