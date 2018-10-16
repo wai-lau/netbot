@@ -5,4 +5,9 @@ Rails.application.routes.draw do
   resources :users
   resources :moves
   root to: "users#new"
+  resources :grids do
+    collection do
+      post 'move'
+    end
+  end
 end

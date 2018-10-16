@@ -1,9 +1,8 @@
 <div class="grid-container">
   <div class="sidebar">
     <h3>Hi, <%= current_user.name %></h3><br />
-    <%= form_for :move, url: {action: "create", controller: "moves"}, remote: true, authenticity_token: true do |f| %>
+    <%= form_for :move, url: move_grids_url, remote: true, authenticity_token: true do |f| %>
       <%= f.text_field :content, style: "width: 90%; display: block; margin: 0 auto 3% auto; font-size: 16px;", data: {textarea: "move"} %>
-      <%= f.hidden_field :game_id, value: "lol" %>
       <%= f.submit "send", style: "display: none;", data: {send: "move"} %>
     <% end %>
     <div id="moves">

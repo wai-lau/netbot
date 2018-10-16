@@ -1,5 +1,5 @@
-class MovesController < ApplicationController
-  def create
+class GridsController < ApplicationController
+  def move
     broadcast (
       {
         text: params["move"]["content"].reverse
