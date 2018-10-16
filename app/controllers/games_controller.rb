@@ -6,17 +6,16 @@ class GamesController < ApplicationController
   end
 
   def new
+    unless current_user && current_user.id
+      redirect_to new_user_url
+      return
+    end
     games = Game.where(user_id: current_user.id)
-    game = games.last if games
-
-    if game
-      session["grid_state"] = game.state
+    if games
+      games.last
     else
       game = Game.new
       game.user = current_user
-      blank_10x10 = [*0..9].map { |i| [*0..9].map { |j| "#{i}:#{j}" } }
-      session["grid_state"] = blank_10x10
-      game.state = session["grid_state"]
       game.save
     end
   end

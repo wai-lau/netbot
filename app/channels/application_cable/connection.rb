@@ -5,7 +5,6 @@ module ApplicationCable
         games = Game.where(user_id: current_user.id)
         game = games.last if games
         if game
-          game.state = request.session["grid_state"]
           game.save
         end
       end
