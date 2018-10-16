@@ -9,6 +9,7 @@ class UsersController < ApplicationController
       user.name = params["user"]["name"]
       unless user.save
         redirect_to new_user_url
+        return
       end 
     end
     

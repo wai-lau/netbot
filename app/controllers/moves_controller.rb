@@ -1,6 +1,10 @@
 class MovesController < ApplicationController
   def create
-    broadcast ({text: params["move"]["content"].reverse})
+    broadcast (
+      {
+        text: params["move"]["content"].reverse
+      }
+    )
   end
 
   private
