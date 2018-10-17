@@ -1,7 +1,7 @@
 function connect() {
   App.moves = App.cable.subscriptions.create('MovesChannel', {  
     received: function(data) {
-      $('input').val(''); 
+      $('#move-input').val(''); 
       $('#moves').prepend(this.textResponse(data.text));
       if (data.update) this.renderGrid(data.grid_state);
       return

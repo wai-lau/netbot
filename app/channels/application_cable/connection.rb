@@ -6,12 +6,11 @@ module ApplicationCable
         game = games.last if games
         if game
           game.save
-          if Grid.find_by(game_id: game.id)
-            grid = Grid.find_by(game_id: game.id)
+          if game.grid
             if request.session["grid_state"]
-              grid.state = request.session["grid_state"]
+              game.grid.state = request.session["grid_state"]
             end
-            grid.save
+            game.grid.save
           end
         end
       end
