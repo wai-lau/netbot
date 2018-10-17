@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def new
+    save
     reset_session
   end
   
@@ -17,5 +18,23 @@ class UsersController < ApplicationController
       session["user_id"] = user.id
       redirect_to new_game_url
     return
+  end
+
+  private 
+
+  def save
+    if current_user
+      games = Game.where(user_id: current_user.id)
+      game = games.last if games
+      if game
+        game.save
+        if game.grid
+          if request.session["grid_state"]
+            game.grid.state = request.session["grid_state"]
+          end
+          game.grid.save
+        end
+      end
+    end
   end
 end
