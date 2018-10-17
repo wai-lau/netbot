@@ -11,7 +11,7 @@ class GamesController < ApplicationController
       return
     end
     games = Game.where(user_id: current_user.id)
-    if games
+    if games.any?
       games.last
     else
       game = Game.new

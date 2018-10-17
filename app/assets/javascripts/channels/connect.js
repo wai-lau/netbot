@@ -10,10 +10,10 @@ function connect() {
       return "<p>" + text + "</p>";
     },
     renderGrid: function(grid_state) {
-      $("#game-grid").css("grid-template-areas","'" + "a ".repeat(grid_state.length) + "'")
+      newGrid = ""
       grid_state.forEach( function(row) {
 	row.forEach( function(tile) {
-          $("#game-grid").append(
+          newGrid +=
 	    `
 	    <div style="background-color: " class="tile">
 	      <p>
@@ -21,9 +21,10 @@ function connect() {
 	      </p>
 	    </div>
 	    `
-	  )
 	});
       });
+      $("#game-grid").css("grid-template-areas","'" + "a ".repeat(grid_state[0].length) + "'")
+      $("#game-grid").html(newGrid);
     }
   });
 }
