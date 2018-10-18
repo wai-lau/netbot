@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GridTest < ActiveSupport::TestCase
+class GridRecordTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

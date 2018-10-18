@@ -1,11 +1,9 @@
 class Grid
-  class Tile < Grid
+  class Tile
     attr_accessor :type
-    attr_accessor :owner
-    attr_accessor :sector_list
 
     def initialize(tile)
-
+      @type = tile[:type]
     end
   end
 end
