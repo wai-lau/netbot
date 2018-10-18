@@ -14,7 +14,7 @@ class GridTest
       assert_equal tiles[0][0].type, :empty
     end
     
-    def test_tilereader_reads_state_with_test_program
+    def test_tilereader_reads_state_with_test_programs
       tiles = Grid::StateTranslator.read(
         blank10,
         [
@@ -46,12 +46,8 @@ class GridTest
       end
     end
 
-    def create_test_program(sector_list)
-      p = Grid::Program.new
-      p.name = "test_program"
-      p.color = "blue"
-      p.max_size = 4
-      p.move = 2
+    def create_test_program(sector_list, name_symbol=nil)
+      p = Grid::Program.new(name_symbol)
       p.sector_list = sector_list
       p
     end

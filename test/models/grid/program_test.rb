@@ -2,6 +2,11 @@ require 'minitest/autorun'
 
 class GridTest
   class ProgramTest < MiniTest::Test
+    def test_program_can_empty_program 
+      program = Grid::Program.new
+      assert !program.nil?
+    end
+    
     def test_program_can_create_hack 
       program = Grid::Program.new(:hack)
       assert_equal program.name, "Hack 1.0"

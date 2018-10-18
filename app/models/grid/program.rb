@@ -15,7 +15,8 @@ class Grid
       end
     end
 
-    def initialize(name_symbol)
+    def initialize(name_symbol=nil)
+      return if name_symbol.nil?
       if PROGRAM_LIST[name_symbol]
         program_data = PROGRAM_LIST[name_symbol]
         @name = if program_data[:name]
