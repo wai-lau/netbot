@@ -14,8 +14,7 @@ class GamesController < ApplicationController
     if games.any?
       games.last
     else
-      game = Game.new
-      game.user = current_user
+      game = Game.new(user: current_user)
       game.save
     end
   end

@@ -6,7 +6,6 @@ class GridsController < ApplicationController
     end
     
     move = params["move"]["content"]
-    
     new_state = current_grid.process_move(move, session["grid_state"])
    
     data = {
@@ -38,7 +37,10 @@ class GridsController < ApplicationController
   end
 
   def current_grid
-    Grid.build_grid(current_game) unless current_game.grid
+    unless current_game.grid
+      grid = Grid.new(game: current_game, state: Grid.blank10)
+      grid.save
+    end 
     current_game.grid
   end
 end

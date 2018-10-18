@@ -2,13 +2,6 @@ class Grid < ApplicationRecord
   belongs_to :game
   serialize :state
 
-  def self.build_grid(game)
-    grid = Grid.new
-    grid.game = game
-    grid.state = blank10
-    game.save
-  end
-
   def process_move(move, grid_state)
     if move.include?("shrink map")
       return shrink_map_ONLY_FOR_TESTING(grid_state)
