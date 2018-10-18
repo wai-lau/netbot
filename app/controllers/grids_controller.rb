@@ -14,7 +14,8 @@ class GridsController < ApplicationController
     }
     
     if data[:update]
-      data[:grid_state] = session["grid_state"] = new_state
+      session["grid_state"] = new_state
+      data[:grid_state] = Grid::StateTranslator.export(session["grid_state"])
     end
 
     broadcast data   
@@ -38,7 +39,7 @@ class GridsController < ApplicationController
 
   def current_grid
     unless current_game.grid
-      grid = Grid.new(game: current_game, state: Grid.blank10)
+      grid = Grid.new(game: current_game, state: Grid::StageLoader.load(:blank10))
       grid.save
     end 
     current_game.grid

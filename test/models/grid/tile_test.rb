@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-class GridTest
+class GridRecordTest
   class TileTest < MiniTest::Test
   end
 end

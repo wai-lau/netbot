@@ -10,19 +10,17 @@ class Grid < ApplicationRecord
     elsif move.include? "load"
       return state
     elsif move == "blank10"
-      return blank10
+      return load_stage(:blank10)
+    elsif move == "hack10"
+      return load_stage(:hack10)
     end
     return nil
   end
 
-  def self.blank10
-    [*0..9].map { |i| [*0..9].map { |j| "#{i} : #{j}" } }
-  end
-
   private
 
-  def blank10
-    Grid.blank10
+  def load_stage(stage_name=:blank10)
+    StageLoader.load(stage_name)
   end
 
   def refresh(grid_state)

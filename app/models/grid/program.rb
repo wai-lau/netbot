@@ -36,7 +36,7 @@ class Grid
     PROGRAM_LIST = {
       hack: {
         name: "Hack 1.0",
-        color: "Blue",
+        color: "Cyan",
         max_size: 4,
         max_move: 2
       },

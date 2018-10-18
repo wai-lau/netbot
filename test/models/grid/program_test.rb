@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-class GridTest
+class GridRecordTest
   class ProgramTest < MiniTest::Test
     def test_program_can_empty_program 
       program = Grid::Program.new

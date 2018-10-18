@@ -15,9 +15,9 @@ function connect() {
 	row.forEach( function(tile) {
           newGrid +=
 	    `
-	    <div style="background-color: " class="tile">
+	    <div style="background-color: ${tile.color}" class="tile">
 	      <p>
-	        ${tile}
+	        ${tile.type}
 	      </p>
 	    </div>
 	    `
