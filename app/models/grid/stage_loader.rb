@@ -32,6 +32,7 @@ class Grid
           p.sector_list.each do |coord|
             row, col = coord
             stage[row][col].type = :program
+            stage[row][col].owner = p
           end
         end
         programs

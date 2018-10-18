@@ -10,14 +10,15 @@ function connect() {
       return "<p>" + text + "</p>";
     },
     renderGrid: function(grid_state) {
-      newGrid = ""
+      var newGrid = ""
+      gs = grid_state
       grid_state.forEach( function(row) {
 	row.forEach( function(tile) {
           newGrid +=
 	    `
 	    <div style="background-color: ${tile.color}" class="tile">
 	      <p>
-	        ${tile.type}
+	        ${tile.owner && tile.owner.name[0] ? tile.owner.name[0] : ""}
 	      </p>
 	    </div>
 	    `

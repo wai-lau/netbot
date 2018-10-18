@@ -30,10 +30,8 @@ class GridsController < ApplicationController
   end
   
   def current_game
-    if current_user && current_user.id
-      if Game.find_by(user_id: current_user.id)
-        Game.where(user_id: current_user.id).last
-      end
+    if current_user
+      current_user.games.last
     end
   end
 

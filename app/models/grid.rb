@@ -3,9 +3,7 @@ class Grid < ApplicationRecord
   serialize :state
 
   def process_move(move, grid_state)
-    if move.include?("shrink map")
-      return shrink_map_ONLY_FOR_TESTING(grid_state)
-    elsif move.include?("refresh")
+    if move.include?("refresh")
       return refresh grid_state
     elsif move.include? "load"
       return state
@@ -25,11 +23,5 @@ class Grid < ApplicationRecord
 
   def refresh(grid_state)
     grid_state
-  end
-
-  def shrink_map_ONLY_FOR_TESTING(grid_state)
-    grid_state.each do |row|
-      row.pop
-    end
   end
 end
