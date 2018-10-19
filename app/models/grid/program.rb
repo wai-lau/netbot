@@ -71,10 +71,11 @@ class Grid
     end
 
     def collision?(destination, tiles)
+      return true if destination.any? { |d| d < 0 }
       row, col = destination
       begin
         !tiles[row][col].space?
-      rescue IndexError
+      rescue
         true
       end
     end
