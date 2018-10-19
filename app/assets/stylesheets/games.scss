@@ -34,7 +34,7 @@ p {
 
   .grid {
     display: grid;
-    grid-gap: 0.5em;
+    grid-gap: 1vh;
 
     .tile {
       display: flex;
@@ -46,7 +46,7 @@ p {
       align-items: center;
 
       p {
-	opacity: 0.5;
+	opacity: 1;
       }
     }
   }
