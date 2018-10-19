@@ -15,7 +15,7 @@ class GridsController < ApplicationController
     
     if data[:update]
       session["grid_state"] = new_state
-      data[:grid_state] = Grid::StateTranslator.export(session["grid_state"])
+      data[:grid_state] = session["grid_state"][:tiles]
     end
 
     broadcast data   

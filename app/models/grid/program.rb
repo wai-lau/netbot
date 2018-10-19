@@ -31,7 +31,53 @@ class Grid
       end
     end
 
+    def move(move, tiles=nil)
+      if %w(h j k l).include? move
+        raise ArgumentError, "No tiles for move command." unless tiles
+        move_program(move, tiles)
+      end
+    end
+
     private
+    
+    def move_program(move, tiles)
+      dest = destination(move)
+      if not collision? dest, tiles
+        #old_sectors = @sector_list
+        @cur_move -= 1
+        @sector_list.unshift(dest)
+        if cur_size > @max_size
+          @sector_list.pop
+        end
+        #redundant but this is better
+        #Grid::StateUpdater.update(tiles, self, old_sectors)
+      end
+    end
+
+    def destination(move)
+      row, col = @sector_list.first
+      begin
+        case move
+        when "h"
+          [row, col-1]
+        when "j"
+          [row+1, col]
+        when "k"
+          [row-1, col]
+        when "l"
+          [row, col+1]
+        end
+      end
+    end
+
+    def collision?(destination, tiles)
+      row, col = destination
+      begin
+        !tiles[row][col].space?
+      rescue IndexError
+        true
+      end
+    end
 
     PROGRAM_LIST = {
       hack: {

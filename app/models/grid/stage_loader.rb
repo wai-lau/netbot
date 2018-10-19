@@ -9,33 +9,22 @@ class Grid
             Grid::Tile.new(tile)
           end
         end
-
         return {tiles: stage} unless STAGE[stage_name][:programs]
-        programs = claim_tiles(stage, STAGE[stage_name][:programs])
+        
+        programs = spawn_programs(STAGE[stage_name][:programs])
+        Grid::StateUpdater.update_all(stage, programs)
         
         {tiles: stage, programs: programs}
       end
 
       private
 
-      def spawn_program(sector_list, name_symbol)
-        p = Grid::Program.new(name_symbol)
-        p.sector_list = sector_list
-        p
-      end
-
-      def claim_tiles(stage, program_data)
-        programs = program_data.map do |data|
-          spawn_program(data[:sector_list], data[:name_symbol])
+      def spawn_programs(program_data)
+        program_data.map do |data|
+           p = Grid::Program.new data[:name_symbol]
+           p.sector_list = data[:sector_list]
+           p
         end
-        programs.each do |p|
-          p.sector_list.each do |coord|
-            row, col = coord
-            stage[row][col].type = :program
-            stage[row][col].owner = p
-          end
-        end
-        programs
       end
 
       STAGE = {
@@ -60,7 +49,22 @@ class Grid
               sector_list: [[6,7],[7,7],[7,6]] 
             },
           ]
-        }
+        },
+        nosec: {
+          map: [*0..9].map do
+                 [*0..9].map do
+                   { type: :empty }
+                 end
+               end,
+          programs: [
+            { name_symbol: :hack,
+              sector_list: [[0,0]]
+            },
+            { name_symbol: :slingshot,
+              sector_list: [[0,0]]
+            },
+          ]
+        },
       }
     end
   end
