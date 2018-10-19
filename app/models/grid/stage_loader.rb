@@ -51,8 +51,8 @@ class Grid
           ]
         },
         nosec: {
-          map: [*0..9].map do
-                 [*0..9].map do
+          map: [*0..12].map do
+                 [*0..12].map do
                    { type: :empty }
                  end
                end,
@@ -61,7 +61,7 @@ class Grid
               sector_list: [[0,0]]
             },
             { name_symbol: :slingshot,
-              sector_list: [[0,0]]
+              sector_list: [[12,12]]
             },
           ]
         },

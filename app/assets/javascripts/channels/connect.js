@@ -16,7 +16,7 @@ function connect() {
 	row.forEach( function(tile) {
           newGrid +=
 	    `
-	    <div style="background-color: ${tile.owner && tile.owner.color ? tile.owner.color : 'light-grey'}" class="tile">
+	    <div style="background-color: ${tile.owner && tile.owner.color ? tile.owner.color : 'light-grey; opacity: 0.1'}" class="tile">
 	      <p>
 	        ${tile.head && tile.owner && tile.owner.name[0] ? tile.owner.name[0] : ""}
 	      </p>

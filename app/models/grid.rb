@@ -8,7 +8,7 @@ class Grid < ApplicationRecord
       return refresh grid_state
     when "load"
       return state
-    when "blank10"
+    when "nosec"
       return load_stage(:nosec)
     when "hack10"
       return load_stage(:hack10)

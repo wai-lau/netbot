@@ -2,8 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$color-bluegrey: #444450;
-
 .grid-container {
   display: grid;
   grid-template-columns: 25% auto;
@@ -26,7 +24,7 @@ p {
 
 .game {
   float: right;
-  background-color: $color-bluegrey; 
+  background-color: #1c1e3a; 
   height: 100%;
   display: flex;
   justify-content: center;

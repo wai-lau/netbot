@@ -24,8 +24,7 @@ class UsersController < ApplicationController
 
   def save
     if current_user
-      games = Game.where(user_id: current_user.id)
-      game = games.last if games
+      game = current_user.games.last if current_user.games
       if game
         game.save
         if game.grid

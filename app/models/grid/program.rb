@@ -89,7 +89,7 @@ class Grid
       },
 
       slingshot: {
-        color: "Teal",
+        color: "#26e2a3",
         max_size: 3,
         max_move: 2
       }
