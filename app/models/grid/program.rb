@@ -86,12 +86,18 @@ class Grid
         max_size: 4,
         max_move: 2
       },
-
       slingshot: {
         color: "#26e2a3",
         max_size: 3,
         max_move: 2
-      }
+      },
+      golem: {
+        name: "Golem",
+        color: "#e09650",
+        max_size: 7,
+        max_move: 2
+      },
+
     }
   end
 end

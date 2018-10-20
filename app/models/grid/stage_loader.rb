@@ -63,6 +63,10 @@ class Grid
             { name_symbol: :slingshot,
               sector_list: [[12,12]]
             },
+            { name_symbol: :golem,
+              sector_list: [[7,3]]
+            },
+ 
           ]
         },
       }
