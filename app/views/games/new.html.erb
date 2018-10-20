@@ -2,7 +2,7 @@
   <div class="sidebar">
     <%= button_to "Save and Log Out", new_user_url, method: "get", style: "float: right" %>
     <p><strong>Hi, <%= current_user.name %></strong></p><br />
-    <%= form_for :move, url: move_grids_url, remote: true, authenticity_token: true do |f| %>
+    <%= form_for :move, url: move_games_url, remote: true, authenticity_token: true do |f| %>
       <%= f.text_field :content, id: "move-input", autocomplete: "off", autofocus: "true", style: "width: 90%; display: block; margin: 0 auto 3% auto; font-size: 16px;", data: {textarea: "move"} %>
       <%= f.submit "send", style: "display: none;", data: {send: "move"} %>
     <% end %>
@@ -18,6 +18,6 @@
 
 <script>
   connect()
-  keypress("<%= move_grids_url %>")
+  keypress("<%= move_games_url %>")
 </script>
 
