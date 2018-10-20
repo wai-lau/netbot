@@ -17,17 +17,20 @@ class Grid
           end
         end
         
+        tile_clones = []
         tile_types.each do |type|
           reference = nil
           state[:programs].each.with_index do |program, i|
             reference = i if type.owner == program
           end
           raise "No such program!?" if reference.nil? && type.type == :program
-          type.owner = reference
+          tile_clone = type.clone
+          tile_clone.owner = reference
+          tile_clones << tile_clone
         end
 
         { reference_map: reference_map,
-          tile_types: tile_types, 
+          tile_types: tile_clones, 
           programs: state[:programs] }
       end
     end

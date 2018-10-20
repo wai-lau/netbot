@@ -26,13 +26,14 @@ class GamesController < ApplicationController
     new_state = current_grid.process_move(move, session["grid_state"])
    
     data = {
-      text: move.reverse,
       update: !new_state.nil?
     }
-    
+   
     if data[:update]
       session["grid_state"] = new_state
-      data[:grid_state] = session["grid_state"][:tiles]
+      data[:grid_state] = Grid::StateShrinker.shrink(session["grid_state"])
+    else
+      data[:text] = "Response: #{move}"
     end
 
     broadcast data   
