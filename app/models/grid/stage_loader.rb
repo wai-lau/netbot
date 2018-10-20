@@ -4,17 +4,17 @@ class Grid
       def load(stage_name)
         return nil unless STAGE[stage_name]
         
-        stage = STAGE[stage_name][:map].map do |row|
+        tiles = STAGE[stage_name][:tiles].map do |row|
           row.map do |tile|
             Grid::Tile.new(tile)
           end
         end
-        return {tiles: stage} unless STAGE[stage_name][:programs]
+        return {tiles: tiles} unless STAGE[stage_name][:programs]
         
         programs = spawn_programs(STAGE[stage_name][:programs])
-        Grid::StateUpdater.update_all(stage, programs)
+        Grid::StateUpdater.update_all(tiles, programs)
         
-        {tiles: stage, programs: programs}
+        {tiles: tiles, programs: programs}
       end
 
       private
@@ -29,14 +29,14 @@ class Grid
 
       STAGE = {
         blank10: {
-          map: [*0..9].map do
+          tiles: [*0..9].map do
                  [*0..9].map do
                    { type: :empty }
                  end
                end
         },
         hack10: {
-          map: [*0..9].map do
+          tiles: [*0..9].map do
                  [*0..9].map do
                    { type: :empty }
                  end
@@ -51,7 +51,7 @@ class Grid
           ]
         },
         nosec: {
-          map: [*0..12].map do
+          tiles: [*0..12].map do
                  [*0..12].map do
                    { type: :empty }
                  end
