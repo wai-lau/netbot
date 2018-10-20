@@ -31,7 +31,6 @@ class Grid < ApplicationRecord
 
   def program_move(move, grid_state)
     grid_state[:programs][selected(grid_state)].move(move, grid_state[:tiles])
-    StateUpdater.update_all(grid_state[:tiles], grid_state[:programs])
   end
 
   def selected(grid_state)

@@ -35,6 +35,25 @@ class GridRecordTest
       assert_equal hack.sector_list.length, 3
       assert_equal hack.sector_list.first, [1,3]
       assert state[:tiles][1][3].owner == hack
+      assert state[:tiles][1][3].owner == hack
     end
+
+    def test_program_deletes_last_sector
+      state = Grid::StageLoader.load(:blank10)
+      
+      hack = Grid::Program.new(:hack)
+      state[:programs] = [
+        hack
+      ]
+      hack.sector_list = [[1,2],[1,1],[1,0],[0,0]]
+      
+      Grid::StateUpdater.update_all(state[:tiles], state[:programs])
+      
+      hack.move("l", state[:tiles])
+
+      assert_equal hack.sector_list.first, [1,3]
+      assert state[:tiles][0][0].owner.nil?
+    end
+ 
   end
 end

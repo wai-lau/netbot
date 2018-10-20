@@ -43,14 +43,13 @@ class Grid
     def move_program(move, tiles)
       dest = destination(move)
       if not collision? dest, tiles
-        #old_sectors = @sector_list
+        old_sectors = @sector_list.clone
         @cur_move -= 1
         @sector_list.unshift(dest)
         if cur_size > @max_size
           @sector_list.pop
         end
-        #redundant but this is better
-        #Grid::StateUpdater.update(tiles, self, old_sectors)
+        Grid::StateUpdater.update(tiles, self, old_sectors)
       end
     end
 
