@@ -42,10 +42,14 @@ class Grid
     
     def move_program(move, tiles)
       dest = destination(move)
-      if not collision? dest, tiles
+      if collision?(dest, tiles) && !self_collision?(dest)
+        return    
+      else
         old_sectors = @sector_list.clone
         @cur_move -= 1
         @sector_list.unshift(dest)
+        #deletes from the back!
+        @sector_list = @sector_list.uniq
         if cur_size > @max_size
           @sector_list.pop
         end
@@ -79,6 +83,10 @@ class Grid
       end
     end
 
+    def self_collision?(destination)
+      @sector_list.any? {|s| s == destination}
+    end
+
     PROGRAM_LIST = {
       hack: {
         name: "Hack 1.0",
@@ -97,7 +105,6 @@ class Grid
         max_size: 7,
         max_move: 2
       },
-
     }
   end
 end

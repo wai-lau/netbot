@@ -54,6 +54,22 @@ class GridRecordTest
       assert_equal hack.sector_list.first, [1,3]
       assert state[:tiles][0][0].owner.nil?
     end
- 
+
+    def test_move_into_self
+      state = Grid::StageLoader.load(:blank10)
+      
+      hack = Grid::Program.new(:hack)
+      state[:programs] = [
+        hack
+      ]
+      hack.sector_list = [[1,2],[1,1],[1,0]]
+      
+      Grid::StateUpdater.update_all(state[:tiles], state[:programs])
+      
+      hack.move("h", state[:tiles])
+
+      assert_equal hack.sector_list.length, 3
+      assert_equal hack.sector_list.first, [1,1]
+    end
   end
 end
