@@ -1,15 +1,21 @@
 <div class="grid-container">
   <div class="sidebar">
-    <%= button_to "Save and Log Out", new_user_url, method: "get", style: "float: right" %>
-    <p><strong>Hi, <%= current_user.name %></strong></p><br />
-    <%= form_for :move, url: move_games_url, remote: true, authenticity_token: true do |f| %>
-      <%= f.text_field :content, id: "move-input", autocomplete: "off", autofocus: "true", style: "width: 90%; display: block; margin: 0 auto 3% auto; font-size: 16px;", data: {textarea: "move"} %>
-      <%= f.submit "send", style: "display: none;", data: {send: "move"} %>
-    <% end %>
-    <div id="moves">
+    <div class="console">
+      <%= button_to "Save and Log Out", new_user_url, method: "get", style: "float: right" %>
+      <p><strong><%= current_user.name %></strong></p><br />
+      <%= form_for :move, url: move_games_url, remote: true, authenticity_token: true do |f| %>
+        <%= f.text_field :content, id: "move-input", autocomplete: "off", autofocus: "true", style: "width: 90%; display: block; margin: 0 auto 3% auto; font-size: 16px;", data: {textarea: "move"} %>
+        <%= f.submit "send", style: "display: none;", data: {send: "move"} %>
+      <% end %>
+      <div id="moves">
+      </div>
+    </div>
+    <div class="program-info">
+      <p><strong>Selected:</strong></p>
+      <div id="selected-program"></div>
     </div>
   </div>
-
+  
   <div class="game">
     <div class="grid" id="game-grid" style="grid-template-areas: '<%= [*0..9].map{"a"}.join " "%>'">
     </div> 

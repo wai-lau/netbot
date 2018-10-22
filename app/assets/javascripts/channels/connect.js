@@ -3,7 +3,12 @@ connect = () => {
     received: (data) => {
       $('#move-input').val('');
       if (data.text) this.textResponse(data.text); 
-      if (data.update) this.renderGrid(data.grid_state);
+      if (data.update) {
+	this.renderGrid(data.grid_state);
+	this.selectedProgram(
+	  data.grid_state.programs[data.grid_state.selected_program] 
+	)
+      }
       return
     }
   });
@@ -11,6 +16,17 @@ connect = () => {
 
 textResponse = (text) => {
   $('#moves').prepend("<p>" + text + "</p>");
+}
+
+selectedProgram = (program) => {
+  $('#selected-program').html(
+    `
+      <p>Name: ${program.name}</p>
+      <p>Max Size: ${program.max_size}</p>
+      <p>Max Move: ${program.max_move}</p>
+      <p>Moves Left: ${program.cur_move}</p>
+    `
+  )
 }
 	
 renderGrid = (grid_state) => {

@@ -31,7 +31,9 @@ class Grid
 
         { reference_map: reference_map,
           tile_types: tile_clones, 
-          programs: state[:programs] }
+          programs: state[:programs],
+          selected_program: state[:selected_program]
+        }
       end
     end
   end

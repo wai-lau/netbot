@@ -13,8 +13,8 @@ class Grid
         
         programs = spawn_programs(STAGE[stage_name][:programs])
         Grid::StateUpdater.update_all(tiles, programs)
-        
-        {tiles: tiles, programs: programs}
+
+        {tiles: tiles, programs: programs, selected_program: 0}
       end
 
       private

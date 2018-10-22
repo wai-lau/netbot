@@ -4,8 +4,6 @@ class Grid < ApplicationRecord
 
   def process_move(move, grid_state)
     case move
-    when "refresh"
-      return refresh grid_state
     when "load"
       return state
     when "nosec"
