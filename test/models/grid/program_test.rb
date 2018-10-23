@@ -30,7 +30,7 @@ class GridRecordTest
       
       Grid::StateUpdater.update_all(state[:tiles], state[:programs])
       
-      hack.move("l", state[:tiles])
+      hack.move("l", :move, state[:tiles])
 
       assert_equal hack.sector_list.length, 3
       assert_equal hack.sector_list.first, [1,3]
@@ -49,7 +49,7 @@ class GridRecordTest
       
       Grid::StateUpdater.update_all(state[:tiles], state[:programs])
       
-      hack.move("l", state[:tiles])
+      hack.move("l", :move, state[:tiles])
 
       assert_equal hack.sector_list.first, [1,3]
       assert state[:tiles][0][0].owner.nil?
@@ -66,14 +66,37 @@ class GridRecordTest
       
       Grid::StateUpdater.update_all(state[:tiles], state[:programs])
       
-      hack.move("h", state[:tiles])
+      hack.move("h", :move, state[:tiles])
 
       assert_equal hack.sector_list.length, 3
       assert_equal hack.sector_list.first, [1,1]
     end
 
-    def test_program_returns_correct_highlight_zone
+    def test_program_returns_correct_attack_zone
+      state = Grid::StageLoader.load(:blank10)
 
+      shot = Grid::Program.new(:slingshot)
+      shot.sector_list = [[1,1]]
+      state[:programs] = [shot]
+      state[:selected_program] = 0
+      
+      Grid::StateUpdater.update_all(state[:tiles], state[:programs])
+
+      shot.move("a", :move, state[:tiles])
+
+      should_be_highlighted = [
+        [0,0],[0,1],[0,2],
+        [1,0],[1,1],[1,2],[1,3],
+        [2,0],[2,1],[2,2],
+              [3,1],
+      ]
+
+      assert_equal state[:tiles].flatten.select{ |t| t.highlight }.length,
+        should_be_highlighted.length
+
+      assert should_be_highlighted.all? do |row, col|
+        state[:tiles][row][col].highlight
+      end
     end
   end
 end

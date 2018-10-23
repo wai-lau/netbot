@@ -7,7 +7,8 @@ connect = () => {
 	this.renderGrid(data.grid_state);
 	this.selectedProgram(
 	  data.grid_state.programs[data.grid_state.selected_program] 
-	)
+	);
+	this.currentMode(data.grid_state)
       }
       return
     }
@@ -18,6 +19,14 @@ textResponse = (text) => {
   $('#moves').prepend("<p>" + text + "</p>");
 }
 
+currentMode = (grid_state) => {
+  $('#selected-mode').html(
+    `
+      <p>${grid_state.mode}</p>
+    `
+  )
+}
+
 selectedProgram = (program) => {
   $('#selected-program').html(
     `
@@ -25,6 +34,7 @@ selectedProgram = (program) => {
       <p>Max Size: ${program.max_size}</p>
       <p>Max Move: ${program.max_move}</p>
       <p>Moves Left: ${program.cur_move}</p>
+      <p>Attack Range: ${program.range}</p>
     `
   )
 }
@@ -39,10 +49,10 @@ renderGrid = (grid_state) => {
     row.forEach( (ref) => {
       newGrid +=
       `
-        <div style="background-color: ${backgroundColor(ref, types, programs, sprogram)}" class="tile">
-          <p>
-  	    ${letterLabel(ref, types, programs)}
-          </p>
+        <div style="background: rgba(${backgroundColor(ref, types, programs, sprogram)})" class="tile">
+          <div style="border: 4px solid rgba(${highlightColor(ref, types)})" class="decoration">
+            ${letterLabel(ref, types, programs)}
+          </div>
         </div>
       `
     });
@@ -52,15 +62,25 @@ renderGrid = (grid_state) => {
 }
 
 backgroundColor = (ref, types, programs, sprogram) => {
+  let color = [255,255,255];
+  let opacity = 0.3;
   if (types[ref].type == "program") {
     color = programs[types[ref].owner].color
     if (sprogram == types[ref].owner)
-      return color + "; opacity: 1;"
+      opacity = 1.0;
     else
-      return (programs[types[ref].owner].color)
-  } else { 
-    return 'white; opacity: 0.3'
+      opacity = 0.7;
   }
+  return `${color[0]}, ${color[1]}, ${color[2]}, ${opacity}` 
+}
+
+highlightColor = (ref, types) => {
+  let color = [255,48,48];
+  let opacity = 0.0;
+  if (types[ref].highlight){
+    opacity = 0.8
+  }
+  return `${color[0]}, ${color[1]}, ${color[2]}, ${opacity}` 
 }
 
 letterLabel = (ref, types, programs) => {

@@ -13,13 +13,28 @@ class Grid < ApplicationRecord
     end
 
     if grid_state
-      if %w(h j k l).include? move
-        program_move(move, grid_state)
-        return grid_state
-      elsif %w(n p).include? move
-        change_selected(move, grid_state)
-        return grid_state
-      end  
+      grid_state[:mode] ||= :move
+      case grid_state[:mode]
+      when :move
+        case move
+        when *%w(h j k l a)
+          program_execute_move(move, grid_state)
+          if move == "a"
+            grid_state[:mode] = :attack
+          end
+          return grid_state
+        when *%w(n p)
+          change_selected(move, grid_state)
+          return grid_state
+        end  
+      when :attack
+        case move
+        when "a"
+          grid_state[:mode] = :move
+          Grid::StateUpdater.clear_highlight(grid_state[:tiles])
+          return grid_state
+        end
+      end
     end
      
     return nil
@@ -27,8 +42,8 @@ class Grid < ApplicationRecord
 
   private
 
-  def program_move(move, grid_state)
-    grid_state[:programs][selected(grid_state)].move(move, grid_state[:tiles])
+  def program_execute_move(move, grid_state)
+    grid_state[:programs][selected(grid_state)].move(move, grid_state[:mode], grid_state[:tiles])
   end
 
   def selected(grid_state)

@@ -66,7 +66,10 @@ class Grid
             { name_symbol: :golem,
               sector_list: [[7,3]]
             },
- 
+            {
+              name_symbol: :wintermute,
+              sector_list: [[3,7]]
+            },
           ]
         },
       }

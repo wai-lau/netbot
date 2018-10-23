@@ -30,6 +30,25 @@ class Grid
         end
       end
 
+      def highlight(tiles, state_tiles)
+        tiles.each do|row, col|
+          begin
+            if row >= 0 && col >= 0
+              state_tiles[row][col].highlight = true
+            end
+          rescue
+          end
+        end
+      end
+
+      def clear_highlight(state_tiles)
+        state_tiles.each do |row|
+          row.each do |t|
+            t.highlight = false
+          end
+        end
+      end
+
       private
     end
   end

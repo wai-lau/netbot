@@ -3,6 +3,7 @@ class Grid
     attr_accessor :type
     attr_accessor :owner
     attr_accessor :head
+    attr_accessor :highlight
 
     def initialize(tile={type: :empty})
       @type = tile[:type]
@@ -16,13 +17,15 @@ class Grid
       @type = :empty
       @head = false
       @owner = nil
+      @hightlight = false
     end
 
     def ==(other)
       return false unless other.kind_of?(self.class)
       self.type == other.type &&
       self.owner == other.owner &&
-      self.head == other.head
+      self.head == other.head &&
+      self.highlight == other.highlight
     end
   end
 end
