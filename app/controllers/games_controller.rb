@@ -33,7 +33,7 @@ class GamesController < ApplicationController
       session["grid_state"] = new_state
       data[:grid_state] = Grid::StateShrinker.shrink(session["grid_state"])
     else
-      data[:text] = "Response: #{move}"
+      data[:text] = "NOP: #{move}"
     end
 
     broadcast data   

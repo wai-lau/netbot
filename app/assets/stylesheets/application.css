@@ -15,6 +15,8 @@
  */
 
 html, body {
+  background-image: url("psyfield.jpg");
+  background-size: cover;
   background-color: #393b5e;
   padding: 0;
   margin: 0;

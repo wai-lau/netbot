@@ -95,13 +95,13 @@ class Grid
         max_move: 2
       },
       slingshot: {
-        color: "#26e2a3",
+        color: "#3ea",
         max_size: 3,
         max_move: 2
       },
       golem: {
         name: "Golem",
-        color: "#e09650",
+        color: "#fc8",
         max_size: 7,
         max_move: 2
       },

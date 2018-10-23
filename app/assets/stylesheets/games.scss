@@ -18,12 +18,12 @@
     grid-row: 1;
     height: 50%;
     margin: 5%;
+    overflow-y: auto;
   }
 
   .program-info {
     grid-row: 2;
     margin: 5%;
-
   }
 }
 

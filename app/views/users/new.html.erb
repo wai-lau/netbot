@@ -1,6 +1,8 @@
-<div style="margin: auto">
+<div style="margin: auto;">
   <%= form_for :user, url: {action: "create"} do |f| %>
-    <%= f.text_field :name %><br /><br />
-    <%= f.submit "ネットボット" %>
+    <div style="display: flex">
+      <%= f.text_field :name %><br />
+      <%= f.submit "ネットボット" %>
+    </div>
   <% end %>
 </div>

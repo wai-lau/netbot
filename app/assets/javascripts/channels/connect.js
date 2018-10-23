@@ -34,11 +34,12 @@ renderGrid = (grid_state) => {
   gs = grid_state
   let types = grid_state.tile_types
   let programs = grid_state.programs
+  let sprogram = grid_state.selected_program
   grid_state.reference_map.forEach( (row) => {
     row.forEach( (ref) => {
       newGrid +=
       `
-        <div style="background-color: ${backgroundColor(ref, types, programs)}" class="tile">
+        <div style="background-color: ${backgroundColor(ref, types, programs, sprogram)}" class="tile">
           <p>
   	    ${letterLabel(ref, types, programs)}
           </p>
@@ -50,11 +51,15 @@ renderGrid = (grid_state) => {
   $("#game-grid").html(newGrid);
 }
 
-backgroundColor = (ref, types, programs) => {
+backgroundColor = (ref, types, programs, sprogram) => {
   if (types[ref].type == "program") {
-    return (programs[types[ref].owner].color)
+    color = programs[types[ref].owner].color
+    if (sprogram == types[ref].owner)
+      return color + "; opacity: 1;"
+    else
+      return (programs[types[ref].owner].color)
   } else { 
-    return 'light-grey; opacity: 0.1'
+    return 'white; opacity: 0.3'
   }
 }
 

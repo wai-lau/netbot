@@ -71,5 +71,9 @@ class GridRecordTest
       assert_equal hack.sector_list.length, 3
       assert_equal hack.sector_list.first, [1,1]
     end
+
+    def test_program_returns_correct_highlight_zone
+
+    end
   end
 end
