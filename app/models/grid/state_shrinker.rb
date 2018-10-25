@@ -33,7 +33,7 @@ class Grid
           tile_types: tile_clones, 
           programs: state[:programs],
           selected_program: state[:selected_program],
-          mode: state[:mode]
+          mode: state[:mode],
         }
       end
     end

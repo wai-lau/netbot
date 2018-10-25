@@ -75,10 +75,16 @@ backgroundColor = (ref, types, programs, sprogram) => {
 }
 
 highlightColor = (ref, types) => {
-  let color = [255,48,48];
+  let color = [220,48,48];
   let opacity = 0.0;
-  if (types[ref].highlight){
-    opacity = 0.8
+  let highlight = types[ref].highlight
+  if (highlight) {
+    if (highlight == "selected"){
+      color = [255,64,64]
+      opacity = 1
+    }
+    else
+      opacity = 0.5
   }
   return `${color[0]}, ${color[1]}, ${color[2]}, ${opacity}` 
 }

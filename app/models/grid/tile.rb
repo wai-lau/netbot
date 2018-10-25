@@ -17,7 +17,7 @@ class Grid
       @type = :empty
       @head = false
       @owner = nil
-      @hightlight = false
+      @highlight = false
     end
 
     def ==(other)

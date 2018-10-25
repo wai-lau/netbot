@@ -59,16 +59,14 @@ class Grid
           programs: [
             { name_symbol: :hack,
               sector_list: [[0,0]]
-            },
-            { name_symbol: :slingshot,
+            },{ name_symbol: :slingshot,
               sector_list: [[12,12]]
-            },
-            { name_symbol: :golem,
+            },{ name_symbol: :golem,
               sector_list: [[7,3]]
-            },
-            {
-              name_symbol: :wintermute,
+            },{ name_symbol: :wintermute,
               sector_list: [[3,7]]
+            },{ name_symbol: :bug,
+              sector_list: [[5,5]]
             },
           ]
         },

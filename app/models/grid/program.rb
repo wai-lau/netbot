@@ -7,6 +7,8 @@ class Grid
     attr_accessor :max_move
     attr_accessor :cur_move
     attr_accessor :range
+    attr_accessor :target_selection
+    attr_accessor :target_color
 
     def cur_size
       if @sector_list.nil?
@@ -33,7 +35,9 @@ class Grid
       end
     end
 
-    def move(move, mode, tiles=nil)
+    def move(move, grid_state)
+      tiles = grid_state[:tiles]
+      mode = grid_state[:mode]
       raise ArgumentError, "No tiles for move command." unless tiles
       case mode
       when :move
@@ -41,17 +45,39 @@ class Grid
         when *%w(h j k l)
           move_program(move, tiles)
         when "a"
-          highlight_attack_range(tiles)
+          @target_selection ||= @sector_list.first
+          highlight_target_range(tiles)
+        end
+      when :target
+        case move
+        when "a"
+          row, col = @target_selection
+          if tiles[row][col].type == :program
+            tiles[row][col].owner.delete(2, grid_state[:tiles], grid_state[:programs])
+          end
+          @target_selection = nil
+        when *%w(h j k l)
+          dest = destination(move, @target_selection)
+          if inbound?(dest, tiles) && target_range.include?(dest)
+            @target_selection = dest
+            highlight_target_range(tiles)
+          end
         end
       end
     end
 
-    def highlight_attack_range(state_tiles)
-      Grid::StateUpdater.highlight(attack_range, state_tiles)
+    def delete(sectors, tiles, programs)
+      old_sectors = @sector_list.clone
+      @sector_list.pop(sectors)
+      Grid::StateUpdater.update(tiles, self, old_sectors, programs)
+    end
+    
+    private
+
+    def highlight_target_range(state_tiles)
+      Grid::StateUpdater.highlight(target_range, state_tiles, @target_selection)
     end
 
-    private
-    
     def move_program(move, tiles)
       dest = destination(move)
       if collision?(dest, tiles) && !self_collision?(dest)
@@ -69,8 +95,12 @@ class Grid
       end
     end
 
-    def destination(move)
-      row, col = @sector_list.first
+    def destination(move, origin=nil)
+      row, col = if origin
+        origin
+      else
+        @sector_list.first
+      end
       begin
         case move
         when "h"
@@ -85,7 +115,7 @@ class Grid
       end
     end
 
-    def attack_range
+    def target_range
       loc = @sector_list.first
       tiles = []
       [*0..(2*@range)].each do |m| 
@@ -101,14 +131,20 @@ class Grid
      tiles 
     end
 
-    def collision?(destination, tiles)
-      return true if destination.any? { |d| d < 0 }
+    def inbound?(destination, tiles)
+      return false if destination.any? { |d| d < 0 }
       row, col = destination
       begin
-        !tiles[row][col].space?
+        !tiles[row][col].nil?
       rescue
-        true
+        false
       end
+    end
+
+    def collision?(destination, tiles)
+      return true unless inbound?(destination, tiles) 
+      row, col = destination
+      !tiles[row][col].space?
     end
 
     def self_collision?(destination)
@@ -119,7 +155,7 @@ class Grid
       hack: {
         name: "Hack 1.0",
         color: [0, 208, 208],
-        max_size: 4,
+        max_size: 3,
         max_move: 2,
         range: 1
       },
@@ -127,13 +163,19 @@ class Grid
         color: [48, 225, 160],
         max_size: 3,
         max_move: 2,
-        range: 2
+        range: 3
       },
       golem: {
         name: "Golem",
         color: [255, 192, 128],
         max_size: 7,
         max_move: 2,
+        range: 1
+      },
+      bug: {
+        color: [125, 244, 66],
+        max_size: 1,
+        max_move: 5,
         range: 1
       },
       wintermute: {

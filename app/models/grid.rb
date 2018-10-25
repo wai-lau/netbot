@@ -20,18 +20,21 @@ class Grid < ApplicationRecord
         when *%w(h j k l a)
           program_execute_move(move, grid_state)
           if move == "a"
-            grid_state[:mode] = :attack
+            grid_state[:mode] = :target
           end
           return grid_state
         when *%w(n p)
           change_selected(move, grid_state)
           return grid_state
         end  
-      when :attack
+      when :target
         case move
-        when "a"
-          grid_state[:mode] = :move
-          Grid::StateUpdater.clear_highlight(grid_state[:tiles])
+        when *%w(h j k l a)
+          program_execute_move(move, grid_state)
+          if move == "a"
+            grid_state[:mode] = :move
+            Grid::StateUpdater.clear_highlight(grid_state[:tiles])
+          end
           return grid_state
         end
       end
@@ -43,7 +46,7 @@ class Grid < ApplicationRecord
   private
 
   def program_execute_move(move, grid_state)
-    grid_state[:programs][selected(grid_state)].move(move, grid_state[:mode], grid_state[:tiles])
+    grid_state[:programs][selected(grid_state)].move(move, grid_state)
   end
 
   def selected(grid_state)

@@ -13,11 +13,15 @@ class Grid
         end
       end
       
-      def update(tiles, program, old_sectors)
+      def update(tiles, program, old_sectors, programs=nil)
         old_sectors.each do |row, col|
           tiles[row][col].clear
         end
-        place_program(tiles, program)
+        if program.cur_size > 0
+          place_program(tiles, program)
+        else
+          programs.delete(program) 
+        end
       end
 
       def place_program(tiles, program)
@@ -30,11 +34,17 @@ class Grid
         end
       end
 
-      def highlight(tiles, state_tiles)
+      def highlight(tiles, state_tiles, selected_target=nil, target_color=nil)
         tiles.each do|row, col|
           begin
             if row >= 0 && col >= 0
               state_tiles[row][col].highlight = true
+              if selected_target
+                srow, scol = selected_target
+                if srow == row && scol == col
+                  state_tiles[row][col].highlight = :selected
+                end
+              end
             end
           rescue
           end
